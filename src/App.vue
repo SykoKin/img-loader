@@ -6,7 +6,33 @@
     </div>
     <router-view />
   </div>
-</template>``
+</template>
+
+<script>
+export default {
+  data(){
+    return {
+      cnt: 0,
+      loaded: 0,
+    }
+  },
+  created(){
+    // 测试事件总线
+    console.log(this.$eventBus)
+    this.$eventBus.on('imgCreate', ()=>{
+      this.cnt += 1
+      console.log('总数：', this.cnt)
+    })
+    this.$eventBus.on('imgLoaded', ()=> {
+      this.loaded += 1
+      console.log('已加载：', this.loaded)
+      if(this.loaded >= this.cnt) {
+        console.log('加载完成')
+      }
+    })
+  }
+}
+</script>
 
 <style>
 #app {
